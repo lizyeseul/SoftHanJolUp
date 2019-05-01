@@ -17,11 +17,12 @@ public class ReadDbActivity extends AppCompatActivity {
 
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor corsor = db.rawQuery("select title, content from tb_memo order by _id desc limit 1" , null);
+        Cursor corsor = db.rawQuery("select content, title  from tb_memo order by _id desc limit 1" , null);
 
         while (corsor.moveToNext()){
             titleView.setText(corsor.getString(0));
             contentView.setText(corsor.getString(1));
+
         }
         db.close();
     }
