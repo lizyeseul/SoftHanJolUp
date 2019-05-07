@@ -12,7 +12,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String memoSQL = "create table tb_memo (_id integer primary key autoincrement, title, content)";
+        //String memoSQL = "create table tb_memo (_id integer primary key autoincrement, title, content)";
+        String memoSQL = "create table course (year integer, semester integer, course_name string, class integer)";
         db.execSQL(memoSQL);
     }
 
