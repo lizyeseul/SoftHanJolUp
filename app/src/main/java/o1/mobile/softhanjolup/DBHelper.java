@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION =1;
     public DBHelper(Context context){
-        super(context, "memodb", null, DATABASE_VERSION);
+        super(context, "courseDB", null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //String memoSQL = "create table tb_memo (_id integer primary key autoincrement, title, content)";
-        String memoSQL = "create table course (year integer, semester integer, course_name string, class integer)";
+        String memoSQL = "create table courseDB (year integer, semester integer, course_name string, credit integer, class integer)";
         db.execSQL(memoSQL);
     }
 

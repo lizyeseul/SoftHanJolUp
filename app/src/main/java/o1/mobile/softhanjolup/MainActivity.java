@@ -44,13 +44,16 @@ Button Btn;
     }
 
     public void onClick(View v){
-        String title = titleView.getText().toString();
-        String content=contentView.getText().toString();
+        //String title = titleView.getText().toString();
+        //String content=contentView.getText().toString();
 
-        DBHelper helper = new DBHelper(this);
+        /*DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
         db.execSQL("insert into tb_memo (title, content) values(?,?)", new String[]{title, content});
-        db.close();
+        db.close();*/
+
+        courseDB db = new courseDB();
+        db.createCourseDB(this);
 
         Intent intent = new Intent(this, ReadDbActivity.class);
         startActivity(intent);
