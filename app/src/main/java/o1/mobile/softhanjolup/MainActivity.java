@@ -1,10 +1,7 @@
 package o1.mobile.softhanjolup;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,8 +31,7 @@ Button Btn;
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -44,16 +40,13 @@ Button Btn;
     }
 
     public void onClick(View v){
-        //String title = titleView.getText().toString();
-        //String content=contentView.getText().toString();
 
-        /*DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        db.execSQL("insert into tb_memo (title, content) values(?,?)", new String[]{title, content});
-        db.close();*/
+        /*course db = new course();
+        db.createCourseDB(this);*/
 
-        courseDB db = new courseDB();
-        db.createCourseDB(this);
+        deptBook db = new deptBook();
+        db.createDeptDB(this);
+
 
         Intent intent = new Intent(this, ReadDbActivity.class);
         startActivity(intent);

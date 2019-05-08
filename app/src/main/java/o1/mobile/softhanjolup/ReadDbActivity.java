@@ -15,15 +15,19 @@ public class ReadDbActivity extends AppCompatActivity {
         TextView titleView = findViewById(R.id.textView2);
         TextView contentView = findViewById(R.id.textView3);
 
-        DBHelper helper = new DBHelper(this);
+        /*DBHelperCourse helper = new DBHelperCourse(this);
+        SQLiteDatabase db = helper.getWritableDatabase();*/
+
+        DBHelperDeptBook helper = new DBHelperDeptBook(this);
         SQLiteDatabase db = helper.getWritableDatabase();
-        //Cursor corsor = db.rawQuery("select content, title  from tb_memo order by _id desc limit 1" , null);
-        Cursor corsor = db.rawQuery("select year, course_name  from courseDB" , null);
 
-        while (corsor.moveToNext()){
-            titleView.setText(corsor.getString(0));
-            contentView.setText(corsor.getString(1));
 
+        //Cursor cursor = db.rawQuery("select year, course_name  from courseDB" , null);
+        Cursor cursor = db.rawQuery("select bookNum, title  from deptBookDB" , null);
+
+        while (cursor.moveToNext()){
+            titleView.setText(cursor.getString(0));
+            contentView.setText(cursor.getString(1));
         }
         db.close();
     }
