@@ -1,10 +1,13 @@
-package o1.mobile.softhanjolup;
+package o1.mobile.softhanjolup.DB;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import o1.mobile.softhanjolup.DB.DBHelperDeptBook;
+import o1.mobile.softhanjolup.R;
 
 public class ReadDbActivity extends AppCompatActivity {
     @Override

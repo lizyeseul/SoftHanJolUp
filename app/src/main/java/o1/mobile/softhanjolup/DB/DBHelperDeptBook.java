@@ -1,4 +1,4 @@
-package o1.mobile.softhanjolup;
+package o1.mobile.softhanjolup.DB;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
