@@ -5,6 +5,12 @@
     android:background="#8FD8AA"
     >
 
+    <ListView
+        android:id="@+id/first_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,4 +32,5 @@
             android:layout_height="wrap_content"
             android:text="first_2" />
     </LinearLayout>
+    -->
 </LinearLayout>

@@ -19,11 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="도서리스트!"/>
-
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -31,6 +26,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/book_tabs"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    app:tabTextColor="@color/tabCourseTextColor"
+                    app:tabSelectedTextColor="@color/tabCourseSelectedTextColor"
+                    />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:id="@+id/containerBookTab">
+                </FrameLayout>
+
             </LinearLayout>
         </android.support.design.widget.CoordinatorLayout>
 
@@ -45,6 +58,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_menu" />
-
 
 </android.support.v4.widget.DrawerLayout>
