@@ -27,6 +27,8 @@ public class a_course_main_j extends AppCompatActivity
 
     f_course_1st_j fragment1;
     f_course_2nd_j fragment2;
+    f_course_3rd_j fragment3;
+    f_course_4th_j fragment4;
     TabLayout tabs;
 
     @Override
@@ -36,7 +38,6 @@ public class a_course_main_j extends AppCompatActivity
         setContentView(R.layout.a_course_main_x);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_course_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -48,11 +49,15 @@ public class a_course_main_j extends AppCompatActivity
 
         fragment1 = new f_course_1st_j();
         fragment2 = new f_course_2nd_j();
+        fragment3 = new f_course_3rd_j();
+        fragment4 = new f_course_4th_j();
         getSupportFragmentManager().beginTransaction().replace(R.id.containerCourseTab, fragment1).commit();
 
         tabs = (TabLayout) findViewById(R.id.course_tabs);
         tabs.addTab(tabs.newTab().setText("1st"));
         tabs.addTab(tabs.newTab().setText("2nd"));
+        tabs.addTab(tabs.newTab().setText("3rd"));
+        tabs.addTab(tabs.newTab().setText("4th"));
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -62,6 +67,8 @@ public class a_course_main_j extends AppCompatActivity
                 Fragment selected = null;
                 if(position == 0)   selected = fragment1;
                 else if(position == 1)   selected = fragment2;
+                else if(position == 2)   selected = fragment3;
+                else if(position == 3)   selected = fragment4;
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.containerCourseTab, selected).commit();
             }
