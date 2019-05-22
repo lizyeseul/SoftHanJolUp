@@ -83,7 +83,8 @@ public class a_course_main_j extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  //메뉴 ...버튼
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //메뉴 ...버튼
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

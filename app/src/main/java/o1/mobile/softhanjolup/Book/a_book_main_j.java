@@ -3,6 +3,8 @@ package o1.mobile.softhanjolup.Book;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import o1.mobile.softhanjolup.Course.a_course_main_j;
+import o1.mobile.softhanjolup.Course.f_course_1st_j;
+import o1.mobile.softhanjolup.Course.f_course_2nd_j;
 import o1.mobile.softhanjolup.English.a_english_main_j;
 import o1.mobile.softhanjolup.MainActivity;
 import o1.mobile.softhanjolup.R;
@@ -18,6 +22,10 @@ import o1.mobile.softhanjolup.Volunteer.a_volun_main_j;
 
 public class a_book_main_j extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    f_book_dept_j fragment1;
+    f_book_uni_j fragment2;
+    TabLayout tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,30 @@ public class a_book_main_j extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        fragment1 = new f_book_dept_j();
+        fragment2 = new f_book_uni_j();
+        getSupportFragmentManager().beginTransaction().replace(R.id.containerBookTab, fragment1).commit();
+
+        tabs = (TabLayout) findViewById(R.id.book_tabs);
+        tabs.addTab(tabs.newTab().setText("dept"));
+        tabs.addTab(tabs.newTab().setText("uni"));
+
+        tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab){
+                int position = tab.getPosition();
+
+                Fragment selected = null;
+                if(position == 0)   selected = fragment1;
+                else if(position == 1)   selected = fragment2;
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.containerBookTab, selected).commit();
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab){}
+            @Override
+            public void onTabReselected(TabLayout.Tab tab){}
+        });
 
     }
 
@@ -50,7 +82,8 @@ public class a_book_main_j extends AppCompatActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {  //메뉴 ...버튼
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //메뉴 ...버튼
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
