@@ -12,22 +12,15 @@ public class course_DBHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        sql = "CREATE TABLE test (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " name TEXT, age TEXT);";
+        sql = "CREATE TABLE DB_Course (_id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER,semester INTEGER, courseName TEXT, credit INTEGER, index_course INTEGER);" ;
+
+
+        //sql = "CREATE TABLE test (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        //        " name TEXT, age TEXT);";
         db.execSQL(sql);
 
-        db.execSQL("INSERT INTO TEST VALUES(NULL, 'KIDSBEAR', '22');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, 'KIDS', '12');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '키즈베어', '30');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '홍길동', '66');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '철수', '24');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '영희', '21');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '갑돌이', '42');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '갑순이', '25');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '빵꾸똥꾸', '11');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '드로이드', '52');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '임꺽정', '32');");
-        db.execSQL("INSERT INTO TEST VALUES(NULL, '나도야', '19');");
+        course tempCourse = new course(db);
+        tempCourse.createCourseDB(db);
     }
 
     @Override

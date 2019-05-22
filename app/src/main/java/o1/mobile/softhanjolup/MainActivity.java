@@ -2,8 +2,6 @@ package o1.mobile.softhanjolup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,8 +16,6 @@ import android.widget.EditText;
 
 import o1.mobile.softhanjolup.Book.a_book_main_j;
 import o1.mobile.softhanjolup.Course.a_course_main_j;
-import o1.mobile.softhanjolup.DB.ReadDbActivity;
-import o1.mobile.softhanjolup.DB.deptBook;
 import o1.mobile.softhanjolup.English.a_english_main_j;
 import o1.mobile.softhanjolup.Volunteer.a_volun_main_j;
 
@@ -46,19 +42,6 @@ Button Btn;
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    public void onClick(View v){
-
-        /*course db = new course();
-        db.createCourseDB(this);*/
-
-        deptBook db = new deptBook();
-        db.createDeptDB(this);
-
-
-        Intent intent = new Intent(this, ReadDbActivity.class);
-        startActivity(intent);
     }
 
 

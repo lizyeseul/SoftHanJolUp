@@ -17,11 +17,17 @@ public class course_DBAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor){
-        final TextView name = view.findViewById(R.id.name);
-        final TextView age = (TextView)view.findViewById(R.id.age);
+        final TextView year = view.findViewById(R.id.year);
+        final TextView semester = view.findViewById(R.id.semester);
+        final TextView courseName = view.findViewById(R.id.courseName);
+        final TextView credit = view.findViewById(R.id.credit);
+        final TextView index_course = view.findViewById(R.id.index_course);
 
-        name.setText("이름 : "+cursor.getString(cursor.getColumnIndex("name")));
-        age.setText("나이 : "+cursor.getString(cursor.getColumnIndex("age")));
+        year.setText("학년 : "+cursor.getString(cursor.getColumnIndex("year")));
+        semester.setText("학기 : "+cursor.getString(cursor.getColumnIndex("semester")));
+        courseName.setText("과목명 : "+cursor.getString(cursor.getColumnIndex("courseName")));
+        credit.setText("학점 : "+cursor.getString(cursor.getColumnIndex("credit")));
+        index_course.setText("인덱스 : "+cursor.getString(cursor.getColumnIndex("index_course")));
     }
 
     @Override

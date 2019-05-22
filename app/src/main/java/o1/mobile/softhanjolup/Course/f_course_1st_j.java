@@ -24,7 +24,7 @@ public class f_course_1st_j extends Fragment {
     String sql;
     Cursor cursor;
 
-    final static String dbName = "person.db";
+    final static String dbName = "SHJU_DB.db";
     final static int dbVersion = 2;
 
     @Nullable
@@ -49,14 +49,12 @@ public class f_course_1st_j extends Fragment {
 
 
 
-
-
         return rootView;
     }
 
     private void selectDB(){
         db = dbHelper.getWritableDatabase();
-        sql = "SELECT * FROM test;";
+        sql = "SELECT * FROM DB_Course;";
 
         cursor = db.rawQuery(sql, null);
         if(cursor.getCount() > 0){
