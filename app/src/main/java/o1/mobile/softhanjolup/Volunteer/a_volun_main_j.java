@@ -78,7 +78,7 @@ public class a_volun_main_j extends AppCompatActivity
         //Fragment myFragment = null;
         //Class fragmentClass;
 
-        if (id == R.id.SideHome) {//홈 창으로 이동
+        if (id == R.id.SideHomee) {//홈 창으로 이동
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
 

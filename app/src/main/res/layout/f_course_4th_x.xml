@@ -4,16 +4,49 @@
     android:layout_height="match_parent"
     android:background="#7E57C2"
     >
-
-    <LinearLayout
+    <TableLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+        <TableRow>
 
-        <TextView
-            android:id="@+id/fourthYear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="4th" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/year"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="year"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/semester"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="semester"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/courseName"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="courseName"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/credit"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="credit"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/index_course"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="index"
+                android:textSize="10sp" />
+        </TableRow>
+    </TableLayout>
+
+
+    <ListView
+        android:id="@+id/fourth_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
