@@ -35,7 +35,6 @@ public class f_course_3rd_j extends Fragment {
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.f_course_3rd_x, container, false);
         dbHelper = new course_DBHelper(getActivity(), dbName, null, dbVersion);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        dbHelper.reset(db);
 
         list = (ListView)rootView.findViewById(R.id.third_list);
         selectDB();

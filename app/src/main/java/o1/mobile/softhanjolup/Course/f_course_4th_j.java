@@ -38,7 +38,6 @@ public class f_course_4th_j extends Fragment {
         dbHelper.reset(db);
 
         list = (ListView)rootView.findViewById(R.id.fourth_list);
-        selectDB();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

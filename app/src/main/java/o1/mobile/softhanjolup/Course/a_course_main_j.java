@@ -1,6 +1,8 @@
 package o1.mobile.softhanjolup.Course;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import o1.mobile.softhanjolup.Book.a_book_main_j;
+import o1.mobile.softhanjolup.DB.course_DBHelper;
 import o1.mobile.softhanjolup.English.a_english_main_j;
 import o1.mobile.softhanjolup.MainActivity;
 import o1.mobile.softhanjolup.R;
@@ -24,6 +27,15 @@ import o1.mobile.softhanjolup.Volunteer.a_volun_main_j;
 
 public class a_course_main_j extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    course_DBHelper dbHelper;
+    SQLiteDatabase db;
+    String sql;
+
+    final static String dbName = "SHJU_DB.db";
+    final static int dbVersion = 3;
+
 
     f_course_1st_j fragment1;
     f_course_2nd_j fragment2;
@@ -77,6 +89,11 @@ public class a_course_main_j extends AppCompatActivity
             @Override
             public void onTabReselected(TabLayout.Tab tab){}
         });
+
+
+        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        dbHelper.reset(db);//db reset 용도
     }
 
     @Override
