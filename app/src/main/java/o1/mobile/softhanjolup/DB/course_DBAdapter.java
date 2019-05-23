@@ -16,7 +16,7 @@ public class course_DBAdapter extends CursorAdapter {
     }
 
     @Override
-    public void bindView(View view, Context context, Cursor cursor){
+    public void bindView(View view, Context context, Cursor cursor) {
         final TextView year = view.findViewById(R.id.year);
         final TextView semester = view.findViewById(R.id.semester);
         final TextView courseName = view.findViewById(R.id.courseName);
