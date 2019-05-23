@@ -6,7 +6,7 @@
     <item android:title="Home">
         <menu>
             <item
-                android:id="@+id/SideHome"
+                android:id="@+id/SideHomee"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Home" />
         </menu>

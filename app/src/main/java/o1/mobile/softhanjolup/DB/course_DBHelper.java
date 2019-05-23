@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class course_DBHelper extends SQLiteOpenHelper {
     String sql;
+    String tempsql;
 
     public course_DBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -14,13 +15,17 @@ public class course_DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         sql = "CREATE TABLE DB_Course (_id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER,semester INTEGER, courseName TEXT, credit INTEGER, index_course INTEGER);" ;
 
-
-        //sql = "CREATE TABLE test (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-        //        " name TEXT, age TEXT);";
         db.execSQL(sql);
 
         course tempCourse = new course(db);
         tempCourse.createCourseDB(db);
+    }
+
+    public void reset(SQLiteDatabase db){
+        tempsql = "drop table DB_Course";
+
+        db.execSQL(tempsql);
+        onCreate(db);
     }
 
     @Override

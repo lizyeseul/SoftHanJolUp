@@ -109,42 +109,25 @@ public class a_course_main_j extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-        //Fragment myFragment = null;
-        //Class fragmentClass;
 
-        if (id == R.id.SideHome) {//홈 창으로 이동
-            //fragmentClass = f_home_main_j.class;
+        if (id == R.id.SideHomee) {//홈 창으로 이동
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
-
         }  else if (id == R.id.SideCourse) {//교육과정 창으로 이동
             Intent intent = new Intent(getApplicationContext(), a_course_main_j.class);
             startActivity(intent);
-            //fragmentClass = f_course_main_j.class;
-
-
         } else if (id == R.id.SideVolun) {//봉사활동 창으로 이동
             Intent intent = new Intent(getApplicationContext(), a_volun_main_j.class);
             startActivity(intent);
-
-
         } else if (id == R.id.SideTOEIC) {//토익 창으로 이동
             Intent intent = new Intent(getApplicationContext(), a_english_main_j.class);
             startActivity(intent);
-
-
         } else if (id == R.id.SideBook) {//독후감 창으로 이동
             Intent intent = new Intent(getApplicationContext(), a_book_main_j.class);
             startActivity(intent);
-
         }
-
         finish();
-       // FragmentManager fragmentManager = getSupportFragmentManager();
-       // fragmentManager.beginTransaction().replace(R.id.course_flcontent, myFragment).commit();//수강화면 바꾸는 부분
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_course_drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

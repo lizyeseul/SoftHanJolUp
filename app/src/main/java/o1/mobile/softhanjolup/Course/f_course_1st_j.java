@@ -25,7 +25,7 @@ public class f_course_1st_j extends Fragment {
     Cursor cursor;
 
     final static String dbName = "SHJU_DB.db";
-    final static int dbVersion = 2;
+    final static int dbVersion = 3;
 
     @Nullable
     @Override
@@ -33,9 +33,11 @@ public class f_course_1st_j extends Fragment {
 
         ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.f_course_1st_x, container, false);
 
-        list = (ListView)rootView.findViewById(R.id.first_list);
         dbHelper = new course_DBHelper(getActivity(), dbName, null, dbVersion);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        dbHelper.reset(db);
 
+        list = (ListView)rootView.findViewById(R.id.first_list);
         selectDB();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -47,14 +49,12 @@ public class f_course_1st_j extends Fragment {
             }
         });
 
-
-
         return rootView;
     }
 
     private void selectDB(){
         db = dbHelper.getWritableDatabase();
-        sql = "SELECT * FROM DB_Course;";
+        sql = "SELECT * FROM DB_Course where year is 1;";
 
         cursor = db.rawQuery(sql, null);
         if(cursor.getCount() > 0){
