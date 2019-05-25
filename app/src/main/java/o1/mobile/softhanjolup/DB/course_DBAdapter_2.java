@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import o1.mobile.softhanjolup.R;
@@ -22,12 +23,20 @@ public class course_DBAdapter_2 extends CursorAdapter {
         final TextView courseName2 = view.findViewById(R.id.courseName2);
         final TextView credit2 = view.findViewById(R.id.credit2);
         final TextView index_course2 = view.findViewById(R.id.index_course2);
+        final RelativeLayout listParent = view.findViewById(R.id.courseListParent2);
 
         year2.setText(cursor.getString(cursor.getColumnIndex("year")));
         semester2.setText(cursor.getString(cursor.getColumnIndex("semester")));
         courseName2.setText(cursor.getString(cursor.getColumnIndex("courseName")));
         credit2.setText(cursor.getString(cursor.getColumnIndex("credit")));
         index_course2.setText(cursor.getString(cursor.getColumnIndex("index_course")));
+
+        if(cursor.getInt(cursor.getColumnIndex("done")) == 0){
+            listParent.setBackgroundColor(context.getResources().getColor(R.color.nodoneBackground));
+        }
+        else{
+            listParent.setBackgroundColor(context.getResources().getColor(R.color.doneBackground));
+        }
     }
 
     @Override

@@ -92,8 +92,8 @@ public class a_course_main_j extends AppCompatActivity
 
 
         dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        dbHelper.reset(db);//db reset 용도
+        db = dbHelper.getWritableDatabase();
+        //dbHelper.reset(db);//db reset 용도
     }
 
     @Override

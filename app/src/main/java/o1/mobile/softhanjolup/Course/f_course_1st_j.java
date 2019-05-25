@@ -1,5 +1,7 @@
 package o1.mobile.softhanjolup.Course;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import o1.mobile.softhanjolup.DB.course_DBAdapter;
@@ -46,7 +52,7 @@ public class f_course_1st_j extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Cursor se1 = se1Index(position);
                 String str = se1.getString(se1.getColumnIndex("courseName"));
-                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
         list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,11 +60,58 @@ public class f_course_1st_j extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Cursor se1 = se2Index(position);
                 String str = se1.getString(se1.getColumnIndex("courseName"));
-                Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
 
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id){
+                Cursor se1 = se1Index(position);
+                String str = se1.getString(se1.getColumnIndex("courseName"));
+                //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+
+                RelativeLayout tempRel = (RelativeLayout)v;
+                if(se1.getInt(se1.getColumnIndex("done")) == 0)
+                {
+                    tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
+                    updateDone(str,1);
+                } else {
+                    tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
+                    updateDone(str,0);
+                }
+                return true;
+            }
+        });
+
+        list2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id){
+                Cursor se = se2Index(position);
+                String str = se.getString(se.getColumnIndex("courseName"));
+                //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+
+                RelativeLayout tempRel = (RelativeLayout)v;
+                if(se.getInt(se.getColumnIndex("done")) == 0)
+                {
+                    tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
+                    updateDone(str,1);
+                } else {
+                    tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
+                    updateDone(str,0);
+                }
+                return true;
+            }
+        });
         return rootView;
+    }
+
+
+    public void updateDone(String name, int done){
+        db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("done",done);
+        db.update("DB_Course", values, "courseName = ?", new String[]{name});
     }
 
     private Cursor se1Index(int positon) {
@@ -98,4 +151,5 @@ public class f_course_1st_j extends Fragment {
             list2.setAdapter(dbAdapter);
         }
     }
+
 }
