@@ -13,8 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import o1.mobile.softhanjolup.Course.a_course_main_j;
-import o1.mobile.softhanjolup.Course.f_course_1st_j;
-import o1.mobile.softhanjolup.Course.f_course_2nd_j;
 import o1.mobile.softhanjolup.English.a_english_main_j;
 import o1.mobile.softhanjolup.MainActivity;
 import o1.mobile.softhanjolup.R;
@@ -85,7 +83,7 @@ public class a_book_main_j extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         //메뉴 ...버튼
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
     }
 

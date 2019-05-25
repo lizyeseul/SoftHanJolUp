@@ -41,11 +41,11 @@ public class f_course_1st_j extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.f_course_1st_x, container, false);
 
         dbHelper = new course_DBHelper(getActivity(), dbName, null, dbVersion);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         list = (ListView) rootView.findViewById(R.id.first_list);
         list2 = (ListView) rootView.findViewById(R.id.first_2_list);
         selectDB();
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,6 +63,7 @@ public class f_course_1st_j extends Fragment {
                 //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
+
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -83,7 +84,6 @@ public class f_course_1st_j extends Fragment {
                 return true;
             }
         });
-
         list2.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id){
@@ -103,8 +103,11 @@ public class f_course_1st_j extends Fragment {
                 return true;
             }
         });
+
         return rootView;
     }
+
+
 
 
     public void updateDone(String name, int done){

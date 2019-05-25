@@ -2,7 +2,6 @@ package o1.mobile.softhanjolup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -58,7 +57,7 @@ Button Btn;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {  //메뉴 ...버튼
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
     }
 
