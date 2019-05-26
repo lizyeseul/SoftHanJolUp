@@ -13,7 +13,9 @@ public class course_DBHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        sql = "CREATE TABLE DB_Course (_id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER,semester INTEGER, courseName TEXT, credit INTEGER, index_course INTEGER);" ;
+        //sql = "CREATE TABLE DB_Course (_id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER,semester INTEGER, courseName TEXT, credit INTEGER, index_course INTEGER);" ;
+
+        sql = "CREATE TABLE DB_Course (_id INTEGER PRIMARY KEY AUTOINCREMENT,year INTEGER,semester INTEGER, courseName TEXT, credit INTEGER, index_course INTEGER, done INTEGER);" ;
 
         db.execSQL(sql);
 
@@ -21,15 +23,10 @@ public class course_DBHelper extends SQLiteOpenHelper {
         tempCourse.createCourseDB(db);
     }
 
-    public void reset(SQLiteDatabase db){
-        tempsql = "drop table DB_Course";
-
-        db.execSQL(tempsql);
-        onCreate(db);
-    }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //버전이 업그레이드 됐을 경우 작업할 내용을 작성합니다.
+        db.execSQL("drop table DB_Course");
+        onCreate(db);
     }
 }

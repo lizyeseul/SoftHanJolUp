@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#859FC7"
+    android:background="@color/courseBackground"
     android:orientation="vertical">
     <TableLayout
         android:layout_marginLeft="10dp"
@@ -45,9 +45,23 @@
         </TableRow>
     </TableLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1학기"/>
 
     <ListView
         android:id="@+id/second_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2학기"/>
+
+    <ListView
+        android:id="@+id/second_2_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
