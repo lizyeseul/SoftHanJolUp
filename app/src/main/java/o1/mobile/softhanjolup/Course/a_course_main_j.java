@@ -3,12 +3,14 @@ package o1.mobile.softhanjolup.Course;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +23,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import o1.mobile.softhanjolup.Book.a_book_main_j;
@@ -48,6 +52,9 @@ public class a_course_main_j extends AppCompatActivity
     f_course_3rd_j fragment3;
     f_course_4th_j fragment4;
     TabLayout tabs;
+    NavigationView navigationView;
+    TextView creditView;
+    View headView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +69,18 @@ public class a_course_main_j extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        headView = navigationView.getHeaderView(0);
+
+        creditView = headView.findViewById(R.id.nav_creditView);
+        int tempC = calCredit();
+        String creditText = getString(R.string.nav_credit1) + tempC + getString(R.string.nav_credit2);
+        creditView.setText(creditText);
 
         {//tab 생성
             fragment1 = new f_course_1st_j();
@@ -101,10 +118,33 @@ public class a_course_main_j extends AppCompatActivity
                 }
             });
         }
-
-
-        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
     }
+
+    public void updateCredit(){
+        creditView = headView.findViewById(R.id.nav_creditView);
+        int tempC = calCredit();
+        String creditText = getString(R.string.nav_credit1) + tempC + getString(R.string.nav_credit2);
+        creditView.setText(creditText);
+    }
+
+    Cursor cursor;
+    public int calCredit(){
+        int tempCredit=0;
+
+        db=dbHelper.getReadableDatabase();
+        sql = "select * from DB_Course where done is 1";
+
+        cursor = db.rawQuery(sql, null);
+        cursor.moveToFirst();
+        for(int i = 0; i<cursor.getCount(); i++){
+            tempCredit += cursor.getInt(cursor.getColumnIndex("credit"));
+            cursor.moveToNext();
+        }
+
+        return tempCredit;
+    }
+
+
 
     int newId = 0;
     //id, year, semester, courseName, credit, index, done

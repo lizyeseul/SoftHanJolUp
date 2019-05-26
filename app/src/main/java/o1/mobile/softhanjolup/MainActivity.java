@@ -1,6 +1,9 @@
 package o1.mobile.softhanjolup;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,15 +15,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import o1.mobile.softhanjolup.Book.a_book_main_j;
 import o1.mobile.softhanjolup.Course.a_course_main_j;
+import o1.mobile.softhanjolup.DB.course_DBAdapter;
+import o1.mobile.softhanjolup.DB.course_DBHelper;
 import o1.mobile.softhanjolup.English.a_english_main_j;
 import o1.mobile.softhanjolup.Volunteer.a_volun_main_j;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 EditText titleView, contentView;
+
+    course_DBHelper dbHelper;
+    SQLiteDatabase db;
+    String sql;
+
+    final static String dbName = "SHJU_DB.db";
+    final static int dbVersion = 3;
+
 Button Btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +53,34 @@ Button Btn;
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
+
+        TextView creditView = navigationView.findViewById(R.id.nav_creditView);
+        int tempC = calCredit();
+        String creditText = getString(R.string.nav_credit1) + tempC + getString(R.string.nav_credit2);
+        creditView.setText(creditText);
+
+
+    }
+
+    Cursor cursor;
+    public int calCredit(){
+        int tempCredit=0;
+
+        db=dbHelper.getReadableDatabase();
+        sql = "select * from DB_Course where done is 1";
+
+        cursor = db.rawQuery(sql, null);
+        if (cursor.getCount() > 0) {
+            tempCredit += cursor.getInt(cursor.getColumnIndex("credit"));
+        }
+
+        return tempCredit;
     }
 
 
