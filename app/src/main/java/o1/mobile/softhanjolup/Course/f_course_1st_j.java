@@ -38,7 +38,7 @@ public class f_course_1st_j extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.f_course_1st_x, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.f_course_1st_x, container, false);
 
         dbHelper = new course_DBHelper(getActivity(), dbName, null, dbVersion);
 
@@ -46,11 +46,12 @@ public class f_course_1st_j extends Fragment {
         list2 = (ListView) rootView.findViewById(R.id.first_2_list);
         selectDB();
 
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Cursor se1 = se1Index(position);
-                //String str = se1.getString(se1.getColumnIndex("courseName"));
+                String str = se1.getString(se1.getColumnIndex("courseName"));
                 //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
@@ -58,7 +59,7 @@ public class f_course_1st_j extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Cursor se1 = se2Index(position);
-                //String str = se1.getString(se1.getColumnIndex("courseName"));
+                String str = se1.getString(se1.getColumnIndex("courseName"));
                 //Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
             }
         });
@@ -76,11 +77,9 @@ public class f_course_1st_j extends Fragment {
                 {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
                     updateDone(str,1);
-                    ((a_course_main_j)getActivity()).updateCredit();
                 } else {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
                     updateDone(str,0);
-                    ((a_course_main_j)getActivity()).updateCredit();
                 }
                 return true;
             }
@@ -97,17 +96,13 @@ public class f_course_1st_j extends Fragment {
                 {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
                     updateDone(str,1);
-                    ((a_course_main_j)getActivity()).updateCredit();
                 } else {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
                     updateDone(str,0);
-                    ((a_course_main_j)getActivity()).updateCredit();
                 }
                 return true;
             }
         });
-
-
 
         return rootView;
     }
