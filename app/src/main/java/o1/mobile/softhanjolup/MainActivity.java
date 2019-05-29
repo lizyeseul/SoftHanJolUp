@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,21 +32,27 @@ EditText titleView, contentView;
     course_DBHelper dbHelper;
     SQLiteDatabase db;
     String sql;
+    int calculatedCredit=0;
+    TextView creditView;
+    View headView;
+    TextView creditInfo1;
+    TextView creditInfo2;
 
     final static String dbName = "SHJU_DB.db";
     final static int dbVersion = 3;
 
-Button Btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
 
         titleView = findViewById(R.id.editText1);
         contentView = findViewById(R.id.editText2);
-        Btn = findViewById(R.id.button);
+        creditInfo1 = findViewById(R.id.creditInfo1);
+        creditInfo2 = findViewById(R.id.creditInfo2);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -54,18 +61,37 @@ Button Btn;
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        dbHelper = new course_DBHelper(this, dbName, null, dbVersion);
+        /*Intent intent = getIntent();
+        if(intent != null){
+            Bundle bundle = intent.getExtras();
+            calculatedCredit = bundle.getInt("credit");
+        }
+        else{*/
+            calculatedCredit =calCredit();;
+      // }
 
-        TextView creditView = navigationView.findViewById(R.id.nav_creditView);
+        headView = navigationView.getHeaderView(0);
+        creditView = headView.findViewById(R.id.nav_creditView);
+        String creditText = getString(R.string.nav_credit1) + calculatedCredit + getString(R.string.nav_credit2);
+        creditView.setText(creditText);
+        creditInfo1.setText("졸업까지");
+        int tempCredit = 120 - calculatedCredit;
+        creditText =  tempCredit + "학점 남았어요!";
+        creditInfo2.setText(creditText);
+
+
+
+    }
+
+    public void updateCredit(){
+        creditView = headView.findViewById(R.id.nav_creditView);
         int tempC = calCredit();
         String creditText = getString(R.string.nav_credit1) + tempC + getString(R.string.nav_credit2);
         creditView.setText(creditText);
-
-
     }
 
     Cursor cursor;
@@ -76,13 +102,14 @@ Button Btn;
         sql = "select * from DB_Course where done is 1";
 
         cursor = db.rawQuery(sql, null);
-        if (cursor.getCount() > 0) {
+        cursor.moveToFirst();
+        for(int i = 0; i<cursor.getCount(); i++){
             tempCredit += cursor.getInt(cursor.getColumnIndex("credit"));
+            cursor.moveToNext();
         }
 
         return tempCredit;
     }
-
 
     @Override
     public void onBackPressed() {

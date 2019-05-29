@@ -71,9 +71,11 @@ public class f_course_4th_j extends Fragment {
                 {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
                     updateDone(str,1);
+                    ((a_course_main_j)getActivity()).updateCredit();
                 } else {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
                     updateDone(str,0);
+                    ((a_course_main_j)getActivity()).updateCredit();
                 }
                 return true;
             }
@@ -91,9 +93,11 @@ public class f_course_4th_j extends Fragment {
                 {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.doneBackground));
                     updateDone(str,1);
+                    ((a_course_main_j)getActivity()).updateCredit();
                 } else {
                     tempRel.setBackgroundColor(getResources().getColor(R.color.nodoneBackground));
                     updateDone(str,0);
+                    ((a_course_main_j)getActivity()).updateCredit();
                 }
                 return true;
             }

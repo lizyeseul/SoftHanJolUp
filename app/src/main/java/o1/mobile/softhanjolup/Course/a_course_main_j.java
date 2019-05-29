@@ -10,23 +10,18 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import o1.mobile.softhanjolup.Book.a_book_main_j;
 import o1.mobile.softhanjolup.DB.course_DBHelper;
@@ -55,6 +50,7 @@ public class a_course_main_j extends AppCompatActivity
     NavigationView navigationView;
     TextView creditView;
     View headView;
+    int calculatedCredit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +74,8 @@ public class a_course_main_j extends AppCompatActivity
         headView = navigationView.getHeaderView(0);
 
         creditView = headView.findViewById(R.id.nav_creditView);
-        int tempC = calCredit();
-        String creditText = getString(R.string.nav_credit1) + tempC + getString(R.string.nav_credit2);
+        calculatedCredit = calCredit();
+        String creditText = getString(R.string.nav_credit1) + calculatedCredit + getString(R.string.nav_credit2);
         creditView.setText(creditText);
 
         {//tab 생성
@@ -146,6 +142,141 @@ public class a_course_main_j extends AppCompatActivity
 
 
 
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_course_drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //메뉴 ...버튼
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.course_option_menu, menu);
+        return true;
+    }
+
+    Dialog dialogAdd;
+    Spinner course_new_year;
+    Spinner course_new_semester;
+    EditText course_new_courseName;
+    EditText course_new_credit;
+    Button newCourseAddBtn;
+    int newYear = 1;
+    int newSemester = 1;
+    String newCourse = "new";
+    String newCredit = "0";
+
+    Dialog dialogDel;
+    Spinner course_del_year;
+    Spinner course_del_semester;
+    EditText course_del_courseName;
+    Button course_delBtn;
+    int delYear = 1;
+    int delSemester = 1;
+    String delCourse = "del";
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.course_action_add) {
+            dialogAdd = new Dialog(a_course_main_j.this);
+
+            dialogAdd.setContentView(R.layout.course_new_record_x);
+
+             course_new_year = dialogAdd.findViewById(R.id.course_new_year);
+             course_new_semester = dialogAdd.findViewById(R.id.course_new_semester);
+             course_new_courseName = dialogAdd.findViewById(R.id.course_new_courseName);
+             course_new_credit = dialogAdd.findViewById(R.id.course_new_credit);
+             newCourseAddBtn = dialogAdd.findViewById(R.id.course_new_addBtn);
+
+            course_new_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    newYear = position+1;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) { newYear = 1; }
+            });
+            course_new_semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    newSemester = position+1;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) { newSemester = 1;}
+            });
+
+            newCourseAddBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    newCourse = course_new_courseName.getText().toString();
+                    newCredit = course_new_credit.getText().toString();
+                    insert(newYear, newSemester,newCourse, Integer.parseInt(newCredit));
+                    dialogAdd.dismiss();
+                }
+            });
+
+            dialogAdd.show();
+
+            return true;
+        }
+        else if(id == R.id.course_action_delete){
+            dialogDel = new Dialog(a_course_main_j.this);
+
+            dialogDel.setContentView(R.layout.course_delete_record_x);
+
+            course_del_year = dialogDel.findViewById(R.id.course_del_year);
+            course_del_semester = dialogDel.findViewById(R.id.course_del_semester);
+            course_del_courseName = dialogDel.findViewById(R.id.course_del_courseName);
+            course_delBtn = dialogDel.findViewById(R.id.course_delBtn);
+
+            course_del_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    delYear = position+1;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) { delYear = 1; }
+            });
+            course_del_semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    delSemester = position+1;
+                }
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) { delSemester = 1;}
+            });
+
+            course_delBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    delCourse = course_del_courseName.getText().toString();
+                    delete(delYear, delSemester,delCourse);
+                    dialogDel.dismiss();
+                }
+            });
+
+            dialogDel.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void delete(int year, int semester, String courseName){
+        db=dbHelper.getWritableDatabase();
+
+        db.delete("DB_Course", "year = ? and semester = ? and courseName = ?", new String[]{Integer.toString(year), Integer.toString(semester), courseName});
+
+    }
+
     int newId = 0;
     //id, year, semester, courseName, credit, index, done
     public void insert(int year, int semester, String courseName, int credit){
@@ -166,90 +297,14 @@ public class a_course_main_j extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.a_course_drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //메뉴 ...버튼
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.course_option_menu, menu);
-        return true;
-    }
-
-    Dialog dialog;
-    Spinner course_new_year;
-    Spinner course_new_semester;
-    EditText course_new_courseName;
-    EditText course_new_credit;
-    Button newCourseAddBtn;
-    int newYear = 1;
-    int newSemester = 1;
-    String newCourse = "new";
-    String newCredit = "0";
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.course_action_settings) {
-            dialog = new Dialog(a_course_main_j.this);
-
-            dialog.setContentView(R.layout.course_new_record_x);
-
-             course_new_year = dialog.findViewById(R.id.course_new_year);
-             course_new_semester = dialog.findViewById(R.id.course_new_semester);
-             course_new_courseName = dialog.findViewById(R.id.course_new_courseName);
-             course_new_credit = dialog.findViewById(R.id.course_new_credit);
-             newCourseAddBtn = dialog.findViewById(R.id.course_new_addBtn);
-
-            course_new_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    newYear = position+1;
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) { newYear = 1; }
-            });
-            course_new_semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    newSemester = position+1;
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) { newSemester = 1;}
-            });
-
-
-            newCourseAddBtn.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    newCourse = course_new_courseName.getText().toString();
-                    newCredit = course_new_credit.getText().toString();
-                    insert(newYear, newSemester,newCourse, Integer.parseInt(newCredit));
-                    dialog.dismiss();
-                }
-            });
-
-            dialog.show();
-
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.SideHomee) {//홈 창으로 이동
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("credit",calculatedCredit);
+            intent.putExtras(bundle);
             startActivity(intent);
         }  else if (id == R.id.SideCourse) {//교육과정 창으로 이동
             Intent intent = new Intent(getApplicationContext(), a_course_main_j.class);

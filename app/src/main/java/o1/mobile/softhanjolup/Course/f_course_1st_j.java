@@ -1,5 +1,10 @@
 package o1.mobile.softhanjolup.Course;
-
+/**
+ * @title f_course_1st_j.java
+ * @author 이예슬
+ * @brief course 탭의 1학년 삭사과정 정보를 알 수 있는 fragment
+ *
+ */
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,8 +28,23 @@ import o1.mobile.softhanjolup.DB.course_DBAdapter_2;
 import o1.mobile.softhanjolup.DB.course_DBHelper;
 import o1.mobile.softhanjolup.R;
 
-public class f_course_1st_j extends Fragment {
 
+
+public class f_course_1st_j extends Fragment {
+    /**
+     * @var list
+     * 1학년 1학기 학사과정 정보가 담긴 listView
+     * @var list2
+     * 1학년 2학기 학사과정 저보가 담긴 lisView
+     * @var dbHelper
+     * 학사과정 정보가 담긴 DB의 Helper 클래스
+     * @var db
+     * 학사과정 DB
+     * @var sql
+     * SQL 쿼리문을 저장하는 String
+     * @var cursor
+     * 불러온 DB를 읽을 때 사용하는 cursor
+     */
     ListView list, list2;
     course_DBHelper dbHelper;
     SQLiteDatabase db;
@@ -37,7 +57,9 @@ public class f_course_1st_j extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        /**
+         * @brief the fragment contains curriculum of 1st year
+         */
         final ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.f_course_1st_x, container, false);
 
         dbHelper = new course_DBHelper(getActivity(), dbName, null, dbVersion);
